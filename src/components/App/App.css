@@ -1,4 +1,10 @@
 #root {
-  max-width: 1440px;
-  padding: 2rem;
+  max-width: 1152px;
+  padding: 32px 12px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
 }
