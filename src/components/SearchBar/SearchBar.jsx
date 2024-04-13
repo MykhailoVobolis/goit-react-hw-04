@@ -1,11 +1,18 @@
 import css from "./SearchBar.module.css";
 import { IoIosSearch } from "react-icons/io";
 import { Field, Form, Formik } from "formik";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 export default function SearchBar({ onSearch }) {
   const handleSubmit = (value, actions) => {
-    !value.search ? toast("Please enter search term!") : onSearch(value.search);
+    !value.search
+      ? toast("Please enter search term!", {
+          style: {
+            color: "#ffffff",
+            backgroundColor: "#FF8C00",
+          },
+        })
+      : onSearch(value.search);
 
     actions.resetForm();
   };
@@ -25,7 +32,6 @@ export default function SearchBar({ onSearch }) {
           <button className={css.searchBtn} type="submit">
             <IoIosSearch className={css.searchIcon} />
           </button>
-          <Toaster position="top-right" />
         </Form>
       </Formik>
     </header>

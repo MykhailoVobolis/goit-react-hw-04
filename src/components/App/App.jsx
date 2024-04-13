@@ -1,19 +1,19 @@
-import { useState, useEffect } from "react";
-import { fetchImagesByWord } from "../../unsplash-api";
 import SearchBar from "../SearchBar/SearchBar";
-import ImageGallery from "../ImageGallery/ImageGallery";
-import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import ImageGallery from "../ImageGallery/ImageGallery";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
-
+import Loader from "../Loader/Loader";
 import "./App.css";
+import { fetchImagesByWord } from "../../unsplash-api";
+import { useState, useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function App() {
   // Оголошуємо стани
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
   const [loaderBtn, setLoaderBtn] = useState(false);
+  const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
   const [inputValue, setInputValue] = useState("");
 
@@ -37,20 +37,32 @@ export default function App() {
         setLoading(true);
         // Використовуємо HTTP-функцію
         const data = await fetchImagesByWord(inputValue, page);
-
         // Перевірка наявності зображень відповідних запиту
-        if (!data.length) {
-          // alert("Sorry, there are no images matching your search query. Please try again!");
-          console.log("Sorry, there are no images matching your search query. Please try again!");
-          setLoading(false);
-          setLoaderBtn(false);
+        if (!data.results.length) {
+          toast("Sorry, there are no images matching your search query. Please try again!", {
+            style: {
+              color: "#ffffff",
+              backgroundColor: "#ef4040",
+            },
+          });
           return;
         }
         // Записуємо дані в стан
-        setImages((evt) => {
-          return evt.length > 0 ? [...evt, ...data] : data;
+        setImages((prevImages) => {
+          return [...prevImages, ...data.results];
         });
         setLoaderBtn(true);
+        // Перевірка, чи це остання завантажена сторінка?
+        if (page === data.total_pages) {
+          //  Повідомлення про досягнення кінця результатів запиту
+          toast("We're sorry, but you've reached the end of search results.", {
+            style: {
+              color: "#ffffff",
+              backgroundColor: "#0099FF",
+            },
+          });
+          setLoaderBtn(false);
+        }
       } catch (error) {
         // У разі помилки від API Встановлюємо стан error в true
         setError(true);
@@ -69,6 +81,7 @@ export default function App() {
       {images.length > 0 && <ImageGallery items={images} />}
       {loaderBtn && <LoadMoreBtn nextPage={nextPage} />}
       <Loader loading={loading} />
+      <Toaster position="top-right" />
     </>
   );
 }

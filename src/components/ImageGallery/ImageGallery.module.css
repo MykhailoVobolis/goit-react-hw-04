@@ -1,8 +1,7 @@
 .gallery {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: start;
+  justify-content: center;
   gap: 24px;
   align-items: center;
 }
@@ -24,8 +23,9 @@
   transition: transform 250ms ease-in-out;
 }
 
-/* @media (prefers-color-scheme: light) {
-  .galleryItem {
-    border: 1px solid rgb(128, 128, 128, 0.1);
+@media screen and (min-width: 1168px) {
+  .gallery {
+    flex-direction: row;
+    justify-content: start;
   }
-} */
+}

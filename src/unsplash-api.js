@@ -12,5 +12,5 @@ export async function fetchImagesByWord(inputValue, page) {
       orientation: "landscape",
     },
   });
-  return response.data.results;
+  return response.data;
 }
