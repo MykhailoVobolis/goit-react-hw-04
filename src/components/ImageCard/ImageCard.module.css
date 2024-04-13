@@ -1,3 +1,7 @@
-/* .galleryImage {
+.galleryImage {
   object-fit: cover;
-} */
+}
+
+.galleryImage:hover {
+  cursor: zoom-in;
+}

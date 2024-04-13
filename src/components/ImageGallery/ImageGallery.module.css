@@ -24,8 +24,8 @@
   transition: transform 250ms ease-in-out;
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   .galleryItem {
     border: 1px solid rgb(128, 128, 128, 0.1);
   }
-}
+} */

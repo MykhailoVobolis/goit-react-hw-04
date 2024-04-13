@@ -6,7 +6,7 @@ export default function ImageGallery({ items }) {
     <ul className={css.gallery}>
       {items.map(({ id, urls: { small, regular }, alt_description }) => (
         <li className={css.galleryItem} key={id}>
-          <ImageCard url={small} alt={alt_description} />
+          <ImageCard url={small} alt={alt_description} regular={regular} />
         </li>
       ))}
     </ul>
