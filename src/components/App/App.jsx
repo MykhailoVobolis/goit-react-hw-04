@@ -3,6 +3,7 @@ import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import Loader from "../Loader/Loader";
+import ImageModal from "../ImageModal/ImageModal";
 import "./App.css";
 import { fetchImagesByWord } from "../../unsplash-api";
 import { useState, useEffect } from "react";
@@ -16,6 +17,8 @@ export default function App() {
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
   const [inputValue, setInputValue] = useState("");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [lageImage, setLageImage] = useState("");
 
   const changeValue = (value) => {
     setImages([]);
@@ -26,6 +29,15 @@ export default function App() {
   const nextPage = () => {
     setLoaderBtn(false);
     setPage(page + 1);
+  };
+
+  const openModal = (item) => {
+    setModalIsOpen(true);
+    setLageImage(item);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
   };
 
   useEffect(() => {
@@ -75,13 +87,14 @@ export default function App() {
   }, [inputValue, page]);
 
   return (
-    <>
+    <div className="mainContainer">
       <SearchBar onSearch={changeValue} />
       {error && <ErrorMessage error={error} />}
-      {images.length > 0 && <ImageGallery items={images} />}
+      {images.length > 0 && <ImageGallery items={images} openModal={openModal} />}
+      {modalIsOpen && <ImageModal isOpen={modalIsOpen} onClose={closeModal} lageImage={lageImage} />}
       {loaderBtn && <LoadMoreBtn nextPage={nextPage} />}
-      <Loader loading={loading} />
+      {loading && <Loader loading={loading} />}
       <Toaster position="top-right" />
-    </>
+    </div>
   );
 }
