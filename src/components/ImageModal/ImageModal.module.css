@@ -25,10 +25,8 @@
 .modalContent {
   position: relative;
   max-width: 90%;
-  max-height: 90%;
   transform: translateY(50px);
   transition: transform 500ms;
-
   outline: transparent;
   outline-offset: 4px;
 }
@@ -41,8 +39,16 @@
   transform: translateY(50px);
 }
 
+.lageImage {
+  max-height: 320px;
+}
+
 @media screen and (min-width: 1168px) {
   .modalContent {
     width: 1080px;
+  }
+
+  .lageImage {
+    max-height: 100%;
   }
 }

@@ -20,7 +20,7 @@ export default function ImageModal({ isOpen, onClose, lageImage }) {
       }}
       closeTimeoutMS={500}
       onRequestClose={onClose}>
-      <img src={lageImage.urls.regular} alt={lageImage.alt_description} />
+      <img className={css.lageImage} src={lageImage.urls.regular} alt={lageImage.alt_description} />
     </Modal>
   );
 }
