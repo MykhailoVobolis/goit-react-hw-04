@@ -24,6 +24,7 @@ export default function App() {
     setImages([]);
     setLoaderBtn(false);
     setInputValue(value);
+    setPage(1); // Скиданя номеру сторінки результатів при новому пошуку
   };
 
   const nextPage = () => {
@@ -43,7 +44,7 @@ export default function App() {
   useEffect(() => {
     // Оголошуємо асинхронну функцію сабміту форми
     async function handleSearch() {
-      if (inputValue === "") return;
+      if (inputValue === "") return; // Пропускаємо ефект як що input порожній
       try {
         setError(false);
         setLoading(true);

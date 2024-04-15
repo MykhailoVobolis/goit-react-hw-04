@@ -24,7 +24,8 @@
 
 .modalContent {
   position: relative;
-  width: 90%;
+  max-width: 90%;
+  max-height: 90%;
   transform: translateY(50px);
   transition: transform 500ms;
 
