@@ -38,6 +38,7 @@ export default function App() {
 
   const nextPage = () => {
     setLoaderBtn(false);
+    setLoading(true);
     setPage(page + 1);
   };
 
