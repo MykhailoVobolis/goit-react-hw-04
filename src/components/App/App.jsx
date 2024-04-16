@@ -6,8 +6,10 @@ import Loader from "../Loader/Loader";
 import ImageModal from "../ImageModal/ImageModal";
 import "./App.css";
 import { fetchImagesByWord } from "../../unsplash-api";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import toast, { Toaster } from "react-hot-toast";
+
+export const perPage = 15; // Кількість зображень що повертаються з API за один запит
 
 export default function App() {
   // Оголошуємо стани
@@ -19,6 +21,13 @@ export default function App() {
   const [inputValue, setInputValue] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [lageImage, setLageImage] = useState("");
+
+  // Реалізація плавного скролу при додаванні нових зображень
+  const firstNewImageRef = useRef();
+
+  useEffect(() => {
+    firstNewImageRef.current && firstNewImageRef.current.scrollIntoView({ behavior: "smooth" });
+  }, [images]);
 
   const changeValue = (value) => {
     setImages([]);
@@ -91,10 +100,14 @@ export default function App() {
     <div className="mainContainer">
       <SearchBar onSearch={changeValue} />
       {error && <ErrorMessage error={error} />}
-      {images.length > 0 && <ImageGallery items={images} openModal={openModal} />}
-      {modalIsOpen && <ImageModal isOpen={modalIsOpen} onClose={closeModal} lageImage={lageImage} />}
-      {loaderBtn && <LoadMoreBtn nextPage={nextPage} />}
+      <>
+        {images.length > 0 && (
+          <ImageGallery ref={firstNewImageRef} items={images} openModal={openModal} perPage={perPage} />
+        )}
+      </>
       {loading && <Loader loading={loading} />}
+      {loaderBtn && <LoadMoreBtn nextPage={nextPage} />}
+      {modalIsOpen && <ImageModal isOpen={modalIsOpen} onClose={closeModal} lageImage={lageImage} />}
       <Toaster position="top-right" />
     </div>
   );

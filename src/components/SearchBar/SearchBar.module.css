@@ -4,7 +4,7 @@
   border-radius: 16px;
   padding-top: 16px;
   padding-bottom: 16px;
-  width: 360px;
+  width: 100%;
   display: flex;
   justify-content: center;
 }
@@ -45,6 +45,12 @@
 .searchIcon {
   width: 20px;
   height: 20px;
+}
+
+@media screen and (min-width: 768px) {
+  .headerContainer {
+    width: 100%;
+  }
 }
 
 @media screen and (min-width: 1168px) {
