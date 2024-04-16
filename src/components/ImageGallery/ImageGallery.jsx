@@ -4,7 +4,6 @@ import css from "./ImageGallery.module.css";
 
 const ImageGallery = forwardRef(({ items, openModal, perPage }, ref) => {
   const newImageIndex = items.length - perPage;
-  console.log(newImageIndex);
   // Функція перевірки співпадіння індексу масиву зображень
   // Повертає true або false
   const isNewImage = (index) => index === newImageIndex;
