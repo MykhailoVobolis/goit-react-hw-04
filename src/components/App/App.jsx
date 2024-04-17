@@ -9,7 +9,7 @@ import { fetchImagesByWord } from "../../unsplash-api";
 import { useState, useEffect, useRef } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
-export const perPage = 15; // Кількість зображень що повертаються з API за один запит
+export const perPage = 18; // Кількість зображень що повертаються з API за один запит
 
 export default function App() {
   // Оголошуємо стани
@@ -26,7 +26,9 @@ export default function App() {
   const firstNewImageRef = useRef();
 
   useEffect(() => {
-    firstNewImageRef.current && firstNewImageRef.current.scrollIntoView({ behavior: "smooth" });
+    // firstNewImageRef.current && firstNewImageRef.current.scrollIntoView({ behavior: "smooth" });
+    // Використання оператора опціональної послідовності ?. замість &&
+    firstNewImageRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [images]);
 
   const changeValue = (value) => {
